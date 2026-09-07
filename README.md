@@ -1,5 +1,9 @@
 # nextech-force
 
+[![CI](https://github.com/Yuxiang-Ma/nextech-force/actions/workflows/ci.yml/badge.svg)](https://github.com/Yuxiang-Ma/nextech-force/actions/workflows/ci.yml)
+[![Python 3.9+](https://img.shields.io/badge/python-3.9%2B-blue)](https://www.python.org/)
+[![License: MIT](https://img.shields.io/badge/license-MIT-green)](LICENSE)
+
 High-rate recording and visualization for Nextech DFS/DFT force gauges.
 
 The vendor library `nexgraphpy` reports **~10 samples/s**. That figure is a
@@ -98,11 +102,15 @@ Being precise, because I have no Ubuntu machine with this gauge attached:
 
 | Claim | Status |
 |---|---|
-| Package imports on Linux (no `WinDLL` at import) | **verified** — unit tests force `platform.system() → "Linux"` with the D2XX library unloadable |
-| Linux backend selection prefers `serial` | **verified** — unit test |
+| Package imports on Linux (no `WinDLL` at import) | **verified in CI on `ubuntu-latest`** — bare install with neither numpy nor matplotlib present |
+| Linux backend selection prefers `serial` | **verified in CI** — Ubuntu reports `available backends: serial` |
 | Serial transport drives the real gauge | **verified on hardware** — `benchmarks/backend_matrix.py`, 250/250 parsed, tare OK |
 | Whole Linux code path, end to end | **verified on hardware** — `benchmarks/linux_path_simulation.py` forces the Linux branches and records from the real gauge |
 | sysfs latency write, `/dev/ttyUSB*` naming | **not verified** — Linux-only filesystem. Logic is unit-tested against an injected filesystem |
+
+CI runs the full suite plus the 294-value parity check on `ubuntu-latest`
+(Python 3.9 and 3.12) on every push, so everything except the gauge itself is
+continuously verified on Linux.
 
 Run `python benchmarks/ubuntu_check.py` on the Ubuntu box to close the last row.
 It reports device nodes, group membership, the latency timer, and the achieved
