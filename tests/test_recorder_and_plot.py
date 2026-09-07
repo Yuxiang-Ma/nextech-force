@@ -38,7 +38,8 @@ class FakeGauge:
 
     def read(self):
         t0 = time.perf_counter()
-        time.sleep(self.period_s)
+        if self.period_s:
+            time.sleep(self.period_s)
         t1 = time.perf_counter()
         self._n += 1
         value = -5.0 * np.sin(2 * np.pi * 0.5 * t1)
@@ -66,11 +67,15 @@ def test_infinite_horizon_runs_until_stopped():
     recorder = Recorder(gauge, InfiniteHorizon(window_s=5.0),
                         RecordingConfig(tare_on_start=False))
     recorder.start()
-    time.sleep(0.4)
-    assert recorder.is_running          # would have stopped if bounded
-    recorder.stop()
+    try:
+        deadline = time.perf_counter() + 10.0
+        while recorder.n_samples < 10 and time.perf_counter() < deadline:
+            time.sleep(0.005)
+        assert recorder.is_running      # would have stopped if bounded
+    finally:
+        recorder.stop()
     assert not recorder.is_running
-    assert recorder.n_samples > 10
+    assert recorder.n_samples >= 10
 
 
 def test_snapshot_is_safe_while_running():
@@ -90,15 +95,25 @@ def test_snapshot_is_safe_while_running():
 
 
 def test_buffer_rolls_but_count_keeps_climbing():
-    gauge = FakeGauge(period_s=0.0005)
+    """The ring buffer caps what is retained; the total count keeps rising.
+
+    Waits for the sample count rather than assuming a throughput: sleep
+    granularity differs enough across hosts (~15 ms on Windows) that a fixed
+    wall-clock window is not a reliable way to reach a sample target.
+    """
+    gauge = FakeGauge(period_s=0.0)
     recorder = Recorder(gauge, InfiniteHorizon(),
                         RecordingConfig(tare_on_start=False, buffer_samples=50))
     recorder.start()
-    time.sleep(0.5)
-    recorder.stop()
+    try:
+        deadline = time.perf_counter() + 10.0
+        while recorder.n_samples <= 50 and time.perf_counter() < deadline:
+            time.sleep(0.005)
+    finally:
+        recorder.stop()
     t, _ = recorder.snapshot()
+    assert recorder.n_samples > 50, "acquisition never reached 50 samples in 10 s"
     assert len(t) <= 50                  # ring buffer capped
-    assert recorder.n_samples > 50       # but the true count is not
 
 
 def test_csv_is_streamed_during_recording(tmp_path):
