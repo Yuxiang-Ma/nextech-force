@@ -1,0 +1,84 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  test:
+    name: test ${{ matrix.os }} py${{ matrix.python }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ["3.9", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+      - name: Install with dev extras
+        shell: bash
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e ".[dev]"
+      - name: Lint
+        run: ruff check .
+      - name: Tests
+        run: pytest -q
+      # The recorded CSVs pin 294 deterministic values. Running this on Linux
+      # proves the analysis produces identical numbers cross-platform, not just
+      # on the Windows machine the gauge is attached to.
+      - name: Deterministic parity against golden fingerprint
+        run: python benchmarks/parity_snapshot.py compare benchmarks/parity_golden.json
+
+  bare-install:
+    name: bare install imports with no extras (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install without extras
+        shell: bash
+        run: |
+          python -m pip install --upgrade pip
+          pip install -e .
+      # The point of the package being importable with no third-party deps is
+      # that it can be embedded in another data-collection pipeline. Assert it
+      # rather than trusting it: numpy and matplotlib are not installed here at
+      # all, so any accidental top-level import fails this job outright.
+      - name: Core API imports with no numpy or matplotlib
+        shell: bash
+        run: |
+          python -c "
+          import sys
+          import nextech_force as nf
+          assert 'numpy' not in sys.modules, 'numpy leaked into import'
+          assert 'matplotlib' not in sys.modules, 'matplotlib leaked into import'
+          for name in ('ForceGauge', 'Recorder', 'record', 'create_horizon',
+                       'GaugeConfig', 'open_backend'):
+              assert hasattr(nf, name), name
+          print('core import OK on', sys.platform, '|', nf.describe_platform())
+          "
+      - name: Missing extras produce an actionable message
+        shell: bash
+        run: |
+          python -c "
+          import nextech_force as nf
+          try:
+              nf.Trace
+          except ImportError as exc:
+              assert 'pip install' in str(exc), exc
+              print('helpful error OK:', exc)
+          else:
+              raise SystemExit('expected ImportError without numpy')
+          "

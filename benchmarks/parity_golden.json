@@ -1,0 +1,448 @@
+{
+  "horizon": {
+    "fixed_20": {
+      "continue": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        false,
+        false,
+        false
+      ],
+      "describe": "fixed horizon, 20 s",
+      "is_bounded": true,
+      "progress": [
+        0.0,
+        0.025,
+        0.16,
+        0.25,
+        0.995,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "xlim": [
+        [
+          0.0,
+          20.0
+        ],
+        [
+          0.0,
+          20.0
+        ],
+        [
+          0.0,
+          20.0
+        ],
+        [
+          0.0,
+          20.0
+        ],
+        [
+          0.0,
+          20.0
+        ],
+        [
+          0.0,
+          20.0
+        ],
+        [
+          0.0,
+          20.0
+        ],
+        [
+          0.0,
+          20.0
+        ]
+      ]
+    },
+    "fixed_5": {
+      "continue": [
+        true,
+        true,
+        true,
+        false,
+        false,
+        false,
+        false,
+        false
+      ],
+      "describe": "fixed horizon, 5 s",
+      "is_bounded": true,
+      "progress": [
+        0.0,
+        0.1,
+        0.64,
+        1.0,
+        1.0,
+        1.0,
+        1.0,
+        1.0
+      ],
+      "xlim": [
+        [
+          0.0,
+          5.0
+        ],
+        [
+          0.0,
+          5.0
+        ],
+        [
+          0.0,
+          5.0
+        ],
+        [
+          0.0,
+          5.0
+        ],
+        [
+          0.0,
+          5.0
+        ],
+        [
+          0.0,
+          5.0
+        ],
+        [
+          0.0,
+          5.0
+        ],
+        [
+          0.0,
+          5.0
+        ]
+      ]
+    },
+    "infinite_20": {
+      "continue": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "describe": "infinite horizon, 20 s window",
+      "is_bounded": false,
+      "progress": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "xlim": [
+        [
+          0.0,
+          20.0
+        ],
+        [
+          0.0,
+          20.0
+        ],
+        [
+          0.0,
+          20.0
+        ],
+        [
+          0.0,
+          20.0
+        ],
+        [
+          0.0,
+          20.0
+        ],
+        [
+          0.0,
+          20.0
+        ],
+        [
+          5.0,
+          25.0
+        ],
+        [
+          30.0,
+          50.0
+        ]
+      ]
+    },
+    "infinite_5": {
+      "continue": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "describe": "infinite horizon, 5 s window",
+      "is_bounded": false,
+      "progress": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "xlim": [
+        [
+          0.0,
+          5.0
+        ],
+        [
+          0.0,
+          5.0
+        ],
+        [
+          0.0,
+          5.0
+        ],
+        [
+          0.0,
+          5.0
+        ],
+        [
+          14.9,
+          19.9
+        ],
+        [
+          15.0,
+          20.0
+        ],
+        [
+          20.0,
+          25.0
+        ],
+        [
+          45.0,
+          50.0
+        ]
+      ]
+    },
+    "infinite_all": {
+      "continue": [
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true,
+        true
+      ],
+      "describe": "infinite horizon, full history",
+      "is_bounded": false,
+      "progress": [
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null
+      ],
+      "xlim": [
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          1.0
+        ],
+        [
+          0.0,
+          3.2
+        ],
+        [
+          0.0,
+          5.0
+        ],
+        [
+          0.0,
+          19.9
+        ],
+        [
+          0.0,
+          20.0
+        ],
+        [
+          0.0,
+          25.0
+        ],
+        [
+          0.0,
+          50.0
+        ]
+      ]
+    }
+  },
+  "parse": {
+    "": null,
+    "\r\n": null,
+    "+12.34": 12.34,
+    "-  0.00  N  ": -0.0,
+    "-0.00": -0.0,
+    "-0.16": -0.16,
+    "0.00": 0.0,
+    "C: - 0.00 N": -0.0,
+    "C: - 17.98 N": -17.98,
+    "N": null,
+    "T: + 4.20 N": 4.2,
+    "garbage": null
+  },
+  "traces": {
+    "data/demo_fixed_20s.csv": {
+      "autocorr": [
+        1.0,
+        0.999712,
+        0.99925,
+        0.998544,
+        0.997595,
+        0.996402,
+        0.99497,
+        0.993293,
+        0.991381,
+        0.989227,
+        0.986842,
+        0.984218,
+        0.98136,
+        0.978272,
+        0.974955,
+        0.97141,
+        0.967636,
+        0.963635,
+        0.959413,
+        0.954973,
+        0.950314
+      ],
+      "band_power": {
+        "0.5-2 Hz": 0.0,
+        "10-20 Hz": -54.06491,
+        "2-5 Hz": -34.493605,
+        "20-40 Hz": -54.141183,
+        "40-60 Hz": -53.487835,
+        "5-10 Hz": -53.651598,
+        "60-87.5044 Hz": -53.727729,
+        "white_floor_mN": 36.319822
+      },
+      "metadata": {
+        "device": "DFS-X 100N (synthetic demo)",
+        "horizon": "fixed horizon, 20 s"
+      },
+      "n": 3500,
+      "rate_report": {
+        "change_rate_hz": 159.695625,
+        "distinct_values": 778,
+        "median_gap_ms": 5.714,
+        "median_run_length": 1.0,
+        "min_change_gap_ms": 5.714,
+        "n_changes": 3193,
+        "p05_change_gap_ms": 5.714,
+        "poll_rate_hz": 175.050012
+      },
+      "sha256_force": "d22c2b0e721ee735add2b9868f831af80a01dc7fb9309de5739ebbd3b0260179",
+      "sha256_t": "5028ba6de603c475aa239f21071803f7b23f3bbee1e1c6d5bc182ff404151007",
+      "step_response": {
+        "bandwidth_hz": 0.673077,
+        "fastest_rise_ms": 520.0,
+        "median_rise_ms": 520.0,
+        "n_edges": 2.0,
+        "peak_slope_N_per_s": 77.00385
+      },
+      "summary": {
+        "duration_s": 19.994286,
+        "latency_median_ms": 5.0315,
+        "latency_p95_ms": 7.405,
+        "max_N": 0.14,
+        "mean_N": -3.698383,
+        "min_N": -31.02,
+        "peak_abs_N": 31.02,
+        "rate_hz": 175.050012,
+        "samples": 3500.0,
+        "sd_N": 6.254991
+      },
+      "verdict": "Values change between polls only 5.7 ms apart, so the gauge is refreshing at least as fast as the 175 Hz poll rate. No held-register quantization."
+    },
+    "data/rest_dither.csv": {
+      "autocorr": [
+        1.0,
+        0.922941,
+        0.882735,
+        0.854458,
+        0.825873,
+        0.794746,
+        0.770237,
+        0.741806,
+        0.718761,
+        0.693408,
+        0.671053,
+        0.647774,
+        0.620802,
+        0.593141,
+        0.56825,
+        0.539357,
+        0.513081,
+        0.486497,
+        0.459451,
+        0.432178,
+        0.403439
+      ],
+      "band_power": {
+        "0.5-2 Hz": 0.0,
+        "10-20 Hz": -18.455808,
+        "2-5 Hz": -4.930838,
+        "20-40 Hz": -23.037071,
+        "40-60 Hz": -24.959838,
+        "5-10 Hz": -15.766038,
+        "60-99.96 Hz": -27.035654,
+        "white_floor_mN": 4.719108
+      },
+      "metadata": {
+        "device": "DFS-X 100N 0000009261 3.07 (pre-tare, resting)",
+        "horizon": "fixed horizon, 25 s"
+      },
+      "n": 4256,
+      "rate_report": {
+        "change_rate_hz": 32.373565,
+        "distinct_values": 8,
+        "median_gap_ms": 5.002,
+        "median_run_length": 3.0,
+        "min_change_gap_ms": 4.518,
+        "n_changes": 809,
+        "p05_change_gap_ms": 4.98235,
+        "poll_rate_hz": 170.31136
+      },
+      "sha256_force": "6b7430e088c8eca3312afcd94a9a230c949791274913738a0cf7f81a07564fa0",
+      "sha256_t": "634c596f2b484968ce904ee88461f357939bfa8e75131068805bb6de4a94f1c8",
+      "step_response": "ValueError: Force span is only 0.22 N; press the load cell firmly and re-record so there is a real step to measure",
+      "summary": {
+        "duration_s": 24.989525,
+        "latency_median_ms": 4.998,
+        "latency_p95_ms": 16.977,
+        "max_N": -0.0,
+        "mean_N": -0.149596,
+        "min_N": -0.22,
+        "peak_abs_N": 0.22,
+        "rate_hz": 170.31136,
+        "samples": 4256.0,
+        "sd_N": 0.024713
+      },
+      "verdict": "Values change between polls only 4.5 ms apart, so the gauge is refreshing at least as fast as the 170 Hz poll rate. No held-register quantization."
+    }
+  }
+}

@@ -1,0 +1,21 @@
+__pycache__/
+*.py[cod]
+*.egg-info/
+build/
+dist/
+.pytest_cache/
+.ruff_cache/
+.mypy_cache/
+.venv/
+venv/
+
+# Recordings are scratch output, except the two reference traces the parity
+# harness and the README depend on.
+data/*.csv
+data/*.png
+!data/rest_dither.csv
+!data/demo_fixed_20s.csv
+
+# Scratch recordings written into the working directory by CLI defaults.
+/*.csv
+/*.png
